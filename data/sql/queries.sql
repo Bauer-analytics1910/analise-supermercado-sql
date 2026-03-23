@@ -56,8 +56,3 @@ FROM supermarket
 GROUP BY "Customer type"
 ORDER BY total_gasto DESC;
 
--- ⏰ Horário com mais vendas
-SELECT strftime('%H', Time) AS hora, COUNT(*) AS total_vendas
-FROM supermarket
-GROUP BY hora
-ORDER BY total_vendas DESC;
