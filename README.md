@@ -13,3 +13,16 @@ Ferramentas Utilizadas
 Destaques da Análise:
 Limpeza e Transformação de Dados:
 Um dos desafios deste projeto foi a coluna de tempo, que estava no formato 12h (AM/PM). Utilizei uma lógica de CASE WHEN com manipulação de strings (SUBSTR, INSTR) para converter os dados para o formato 24h, permitindo uma análise precisa da distribuição de vendas ao longo do dia.
+
+🕒 Análise de Pico de Faturamento
+Através da limpeza dos dados de tempo e agrupamento por hora, identificamos os períodos de maior atividade financeira no supermercado:
+
+Pico Principal: O horário das 19h lidera o faturamento com aproximadamente $39.699,51. Isso sugere um grande fluxo de clientes realizando compras após o horário comercial.
+
+Janelas de Oportunidade: Observamos picos secundários às 13h ($34.723,23) e às 10h ($31.421,48).
+
+Insight de Negócio: Estes dados auxiliam na tomada de decisão para:
+
+Escalonamento de funcionários nos caixas para evitar filas nos horários de pico.
+
+Planejamento de reposição de gôndolas (especialmente produtos frescos) antes das 10h e das 18h.
