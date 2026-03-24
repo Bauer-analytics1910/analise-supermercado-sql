@@ -1,4 +1,4 @@
-📊 Análise de Dados de Vendas: Supermarket Sales
+📊 Análise de Dados de Vendas: Supermarket Sales.
 Este projeto consiste em uma análise exploratória de dados (EDA) de uma rede de supermercados, utilizando SQL para extrair insights estratégicos sobre faturamento, comportamento do consumidor e performance de produtos.
 
 O objetivo é responder perguntas de negócio como:
