@@ -47,7 +47,7 @@ GROUP BY Payment
 ORDER BY total DESC;
 
 -- 📈 Ticket médio
-SELECT AVG(Total) AS ticket_medio
+SELECT AVG(Sales) AS ticket_medio
 FROM supermarket;
 
 -- 👥 Tipo de cliente que mais gasta
@@ -67,8 +67,32 @@ SELECT
         WHEN 4 THEN 'Quinta-feira'
         WHEN 5 THEN 'Sexta-feira'
         WHEN 6 THEN 'Sábado'
-    END AS dia_semana,
+
+ -- Ticket Médio: Membros vs Clientes Normais
+SELECT 
+    "Customer type", 
+    COUNT(*) AS total_vendas,
+    ROUND(AVG(Sales), 2) AS ticket_medio,
     ROUND(SUM(Sales), 2) AS faturamento_total
 FROM supermarket
-GROUP BY dia_semana
-ORDER BY faturamento_total DESC;
+GROUP BY 1
+ORDER BY ticket_medio DESC;
+
+-- Linha de produto favorita por gênero
+SELECT 
+    Gender, 
+    "Product line", 
+    SUM(Quantity) AS total_itens
+FROM supermarket
+GROUP BY Gender, "Product line"
+ORDER BY Gender, total_itens DESC;
+
+-- As 3 categorias que geram maior lucro bruto (Gross Income)
+SELECT 
+    "Product line", 
+    ROUND(SUM("gross income"), 2) AS lucro_total,
+    ROUND(AVG("gross margin percentage"), 2) AS margem_media
+FROM supermarket
+GROUP BY 1
+ORDER BY lucro_total DESC
+LIMIT 3;
