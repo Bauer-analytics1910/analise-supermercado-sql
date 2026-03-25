@@ -96,3 +96,15 @@ FROM supermarket
 GROUP BY 1
 ORDER BY lucro_total DESC
 LIMIT 3;
+
+-- Ranking de faturamento das cidades sem usar GROUP BY simples
+SELECT 
+city,
+"product line",
+SUM(Sales) OVER (PARTITION BY city, "Product line") AS 
+faturamento_categoria_cidade,
+RANK() OVER (PARTITION BY City
+ORDER BY SUM(SALES) DESC) AS
+ranking_na_cidade
+FROM customer_order
+GROUP BY city, "Product line";
