@@ -41,3 +41,5 @@ Credit Card (311 transações): O cartão de crédito aparece em terceiro lugar,
 💡 Insight de Negócio:
 
 Com a Ewallet na liderança, o supermercado pode investir em programas de fidelidade baseados em aplicativos ou parcerias de cashback com carteiras digitais. Além disso, a paridade com o dinheiro em espécie (Cash) reforça a necessidade de manter processos eficientes de frente de caixa para ambos os tipos de fluxo.
+
+Segmentação Geográfica: Através de Window Functions, mapeamos o ranking de categorias por cidade. Isso permite estratégias de estoque regionalizadas (Ex: Priorizar estoque de 'Sports and travel' em Mandalay).
