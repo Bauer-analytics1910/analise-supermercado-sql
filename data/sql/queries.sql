@@ -126,3 +126,12 @@ SELECT
 FROM supermarket
 GROUP BY "Customer type"
 ORDER BY media_itens DESC;
+
+-- 🏆 Produto mais lucrativo (não só vendido)
+
+SELECT 
+    "Product line",
+    ROUND(SUM("gross income"), 2) AS lucro_total
+FROM supermarket
+GROUP BY "Product line"
+ORDER BY lucro_total DESC;
