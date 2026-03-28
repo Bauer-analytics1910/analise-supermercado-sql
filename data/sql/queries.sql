@@ -108,3 +108,12 @@ ORDER BY SUM(SALES) DESC) AS
 ranking_na_cidade
 FROM customer_order
 GROUP BY city, "Product line";
+
+-- 🧠 Frequência de compra por tipo de cliente
+
+SELECT 
+    "Customer type",
+    COUNT(*) AS total_compras,
+    ROUND(COUNT(*) * 1.0 / (SELECT COUNT(*) FROM supermarket), 2) AS proporcao
+FROM supermarket
+GROUP BY "Customer type";
