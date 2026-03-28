@@ -117,3 +117,12 @@ SELECT
     ROUND(COUNT(*) * 1.0 / (SELECT COUNT(*) FROM supermarket), 2) AS proporcao
 FROM supermarket
 GROUP BY "Customer type";
+
+-- 🧾 Clientes que compram mais itens por compra
+
+SELECT 
+    "Customer type",
+    ROUND(AVG(Quantity), 2) AS media_itens
+FROM supermarket
+GROUP BY "Customer type"
+ORDER BY media_itens DESC;
