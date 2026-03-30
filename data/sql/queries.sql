@@ -135,3 +135,12 @@ SELECT
 FROM supermarket
 GROUP BY "Product line"
 ORDER BY lucro_total DESC;
+
+-- ⭐ Média de avaliação por categoria de produto
+SELECT 
+    "Product line", 
+    ROUND(AVG(Rating), 2) AS media_satisfacao,
+    COUNT(*) AS total_avaliacoes
+FROM supermarket
+GROUP BY 1
+ORDER BY media_satisfacao DESC;
