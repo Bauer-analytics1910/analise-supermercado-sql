@@ -144,3 +144,20 @@ SELECT
 FROM supermarket
 GROUP BY 1
 ORDER BY media_satisfacao DESC;
+
+-- ========================================================
+-- 📊 ANÁLISE DE LUCRATIVIDADE POR HORA (PRODUTIVIDADE)
+-- ========================================================
+-- Objetivo: Identificar em quais horários o supermercado gera 
+-- o maior volume de lucro bruto para otimizar a operação.
+
+SELECT 
+    HOUR(STR_TO_DATE(Time, '%h:%i:%s %p')) AS hora_do_dia,
+    COUNT(Invoice_ID) AS total_transacoes,
+    ROUND(SUM(Sales), 2) AS faturamento_total,
+    ROUND(SUM(`gross income`), 2) AS lucro_bruto_total,
+    ROUND(AVG(`gross income`), 2) AS lucro_medio_por_venda
+FROM tb_vendas
+GROUP BY hora_do_dia
+ORDER BY lucro_bruto_total DESC;
+
