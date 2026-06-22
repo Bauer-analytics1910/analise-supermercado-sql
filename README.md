@@ -1,7 +1,8 @@
 🛒 Supermarket Sales Performance: End-to-End BI Solution
 
 
-dashboard_supermarket
+<img width="881" height="338" alt="dashboard_supermarket" src="https://github.com/user-attachments/assets/535d0aa4-8d21-4dfe-aa22-eb2c1d8da469" />
+
 
 📊 Sobre o Projeto
 
