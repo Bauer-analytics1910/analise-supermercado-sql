@@ -1,46 +1,85 @@
-📊 Análise de Dados de Vendas: Supermarket Sales.
-Este projeto consiste em uma análise exploratória de dados (EDA) de uma rede de supermercados, utilizando SQL para extrair insights estratégicos sobre faturamento, comportamento do consumidor e performance de produtos.
+🛒 Supermarket Sales Performance: End-to-End BI Solution
 
-O objetivo é responder perguntas de negócio como:
--Qual o horário de maior pico de vendas para otimização de escala de funcionários?
--Quais categorias de produtos são mais rentáveis por gênero?
--Como o tipo de cliente (Membro vs Normal) afeta o ticket médio?
 
-Ferramentas Utilizadas
--SQL (SQLite): Para manipulação e consulta dos dados.
--Dataset: [Supermarket Sales (Kaggle)]
+dashboard_supermarket
 
-Destaques da Análise:
-Limpeza e Transformação de Dados:
+📊 Sobre o Projeto
 
-Um dos desafios deste projeto foi a coluna de tempo, que estava no formato 12h (AM/PM). 
-Utilizei uma lógica de CASE WHEN com manipulação de strings (SUBSTR, INSTR) para converter os dados para o formato 24h, permitindo uma análise precisa da distribuição de vendas ao longo do dia.
+Este projeto consiste no desenvolvimento de uma solução de Business Intelligence completa para analisar o desempenho de uma rede de supermercados. O objetivo foi transformar dados brutos de vendas numa ferramenta de tomada de decisão interativa, focada em responder a questões estratégicas sobre faturamento, comportamento do consumidor, picos de operação e satisfação do cliente (C-SAT).
 
-🕒 Análise de Pico de Faturamento
-Através da limpeza dos dados de tempo e agrupamento por hora, identificamos os períodos de maior atividade financeira no supermercado:
+Fonte dos Dados: Supermarket Sales (Kaggle)
 
-Pico Principal: O horário das 19h lidera o faturamento com aproximadamente $39.699,51. Isso sugere um grande fluxo de clientes realizando compras após o horário comercial.
+🛠️ Ferramentas e Tecnologias
 
-Janelas de Oportunidade: Observamos picos secundários às 13h ($34.723,23) e às 10h ($31.421,48).
+Microsoft Power BI: Construção do Dashboard, UI/UX e Data Storytelling.
 
-Insight de Negócio: Estes dados auxiliam na tomada de decisão para:
+Power Query (Linguagem M): Processos de ETL, limpeza e transformação de dados.
 
-Escalonamento de funcionários nos caixas para evitar filas nos horários de pico.
+DAX (Data Analysis Expressions): Criação de medidas, KPIs e regras de negócio.
 
-Planejamento de reposição de gôndolas (especialmente produtos frescos) antes das 10h e das 18h.
+Modelagem de Dados: Estruturação em Star Schema (Fato e Dimensões).
 
-💳 Preferências de Pagamento
-A análise dos métodos de pagamento revela uma distribuição equilibrada entre as três principais modalidades, com uma leve predominância de tecnologias digitais:
+⚙️ A Arquitetura da Solução (O Processo)
 
-Ewallet (345 transações): É o método mais utilizado, indicando um público que adota soluções digitais e pagamentos via smartphone.
+Para garantir que o dashboard fosse performático e escalável, o projeto não se baseou apenas em arrastar gráficos, mas sim numa arquitetura de dados robusta dividida em 4 pilares:
 
-Cash (344 transações): O uso de dinheiro em espécie segue extremamente próximo da carteira digital, mostrando que métodos tradicionais ainda são vitais para o negócio.
+1. ETL e Tratamento de Dados (Power Query)
 
-Credit Card (311 transações): O cartão de crédito aparece em terceiro lugar, com uma diferença pequena para os demais.
+Os dados originais (em formato .csv) apresentavam desafios de formatação regional.
 
-💡 Insight de Negócio:
+Limpeza Tipográfica: O principal desafio foi a formatação de números decimais com pontos (padrão americano) sendo lidos incorretamente em sistemas locais. O problema foi resolvido via Power Query alterando a localidade da extração (Usando a Localidade > Inglês (EUA)).
 
-Com a Ewallet na liderança, o supermercado pode investir em programas de fidelidade baseados em aplicativos ou parcerias de cashback com carteiras digitais. Além disso, a paridade com o dinheiro em espécie (Cash) reforça a necessidade de manter processos eficientes de frente de caixa para ambos os tipos de fluxo.
+Otimização: Remoção de etapas automáticas de "Tipo Alterado" redundantes para melhorar a velocidade de atualização do modelo.
 
-Segmentação Geográfica: Através de Window Functions, mapeamos o ranking de categorias por cidade. Isso permite estratégias de estoque regionalizadas (Ex: Priorizar estoque de 'Sports and travel' em Mandalay).
+2. Modelagem de Dados (Star Schema)
+
+Em vez de trabalhar com um "Tabelão" plano (Flat Table), a base original foi normalizada num modelo Star Schema para otimizar as consultas DAX:
+
+Tabela Fato: fVendas (contendo as chaves estrangeiras e valores transacionais).
+
+Tabelas Dimensão: Criadas via referência no Power Query e remoção de duplicatas (dProduto, dLocalidade, dPagamento, dTipoCliente, dGenero).
+
+Calendário Dinâmico: Criação de uma dCalendario em DAX para análises temporais (Time Intelligence).
+
+3. Regras de Negócio e DAX
+
+As métricas foram isoladas numa tabela dedicada (_Medidas) para facilitar a manutenção.
+
+Faturamento Real vs Receita Bruta: O faturamento foi calculado usando o custo dos produtos vendidos (COGS), isolando as taxas de impostos cobradas na nota.
+
+Cálculos de Margem: Criação de medidas precisas de Margem de Lucro % (DIVIDE([Lucro Bruto Total], [Faturamento Total])) e Ticket Médio por transação.
+
+Engenharia de Recursos (Feature Engineering): Criação de uma coluna calculada Hora Inteira = HOUR(fVendas[Time]) para agrupar centenas de transações em blocos de horas, permitindo a análise de picos de movimento.
+
+4. UI/UX e Data Storytelling
+
+O design do painel foi construído focado no nível executivo (C-Level):
+
+Densidade de Informação: Layout em Grid de 3 colunas para acomodar 6 análises gráficas e 5 KPIs sem poluição visual.
+
+Clean Design: Uso de fundos contrastantes (cartões brancos sobre fundo cinza claro com sombras) para destacar os dados ("Efeito Apple").
+
+Uso Inteligente de Visuais: Substituição de gráficos de pizza repetitivos por Árvores Hierárquicas/Funis e formatação condicional de eixos (ex: Eixo X da Avaliação Média começando no 6.0) para evidenciar diferenças subtis entre categorias.
+
+💡 Principais Insights de Negócio
+
+Após o tratamento avançado e a modelagem, os dados revelaram insights cruciais para a operação do supermercado:
+
+Picos de Operação e Escala (Time Management):
+
+A extração da hora da compra revelou que o horário de 19h lidera isoladamente o volume financeiro ($37,8 Mil), indicando forte fluxo pós-horário comercial.
+
+Ação sugerida: Reforço de funcionários nos caixas às 19h e janelas de reposição de gôndolas antes das 10h e no meio da tarde.
+
+O Impacto do Programa de Fidelidade:
+
+O gráfico de Tipos de Cliente prova que o programa compensa: clientes 'Member' geraram $180,6 Mil em faturamento contra apenas $126,9 Mil dos clientes 'Normal'. O clube de fidelidade é o grande motor da receita.
+
+Experiência do Cliente (C-SAT):
+
+A avaliação média global é de 6.97. No entanto, analisando por categoria, o setor de Food and Beverages não só é um dos campeões de venda para o público feminino, como também lidera o ranking de satisfação global (Nota 7.11). O departamento de 'Home and Lifestyle' precisa de atenção (Nota 6.84).
+
+Meios de Pagamento:
+
+Forte adoção de Ewallet (34,74%) e Cash (34,06%). A ausência de hegemonia do cartão de crédito exige que o supermercado mantenha caixas com troco rápido, ao mesmo tempo em que investe em leitores NFC e parcerias de Cashback digital.
 
