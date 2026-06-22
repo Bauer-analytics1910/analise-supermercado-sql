@@ -34,6 +34,8 @@ Otimização: Remoção de etapas automáticas de "Tipo Alterado" redundantes pa
 
 2. Modelagem de Dados (Star Schema)
 
+<img width="683" height="341" alt="star_schema_supermarket" src="https://github.com/user-attachments/assets/bfbaf81e-9d88-4161-93f7-659c872023c0" />
+
 Em vez de trabalhar com um "Tabelão" plano (Flat Table), a base original foi normalizada num modelo Star Schema para otimizar as consultas DAX:
 
 Tabela Fato: fVendas (contendo as chaves estrangeiras e valores transacionais).
